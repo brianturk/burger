@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: "Silem";
     src: url("../font/SilomBol.ttf");
@@ -21,9 +20,12 @@ body {
     cursor: pointer;
 }
 
-
 #burger {
     background-color: rgb(253, 222, 127);
+}
+
+.devour {
+    font-family: Silem;
 }
 
 
