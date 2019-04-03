@@ -32,6 +32,10 @@ body {
     font-family: Silem;
 }
 
+.delete {
+    font-family: Silem;
+}
+
 
 @media only screen and (max-width: 1000px) {
    .addBurger {

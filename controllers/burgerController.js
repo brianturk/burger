@@ -44,11 +44,11 @@ router.put("/api/eatBurger", (req, res) => {
 });
 
 // add a delete route to the burgers api
-router.delete("/api/burgers/:id", (req, res) => {
+router.delete("/api/deleteBurger", (req, res) => {
   // call the burgers model 
   // to delete a burger by id 
   // respond back with data
-  burger.delete("id", req.params.id, (data) => {
+  burger.delete("id", req.body.id, (data) => {
     res.json(data);
   });
 });

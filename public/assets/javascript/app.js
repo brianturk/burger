@@ -12,8 +12,8 @@ $(document).ready(function () {
     })
 
 
-    
 
+    //Devour button
 
     function makeDevourButton(element) {
         let itemLeft = element.width() - element.position().left - 11;
@@ -41,6 +41,7 @@ $(document).ready(function () {
     })
 
 
+    //For touchscreen
     $(document).on("touchstart", '.notEaten', function (e) {
         let buttonId = '#devourBtn-' + $(this).attr('data-item');
 
@@ -50,7 +51,6 @@ $(document).ready(function () {
     })
 
 
-    //For touchscreen?
     $(document).on("click", ".notEaten", function () {
         let buttonId = '#devourBtn-' + $(this).attr('data-item');
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
             // eatAudio.play();
             let buttonParent = $(buttonId).parent();
             let id = $(this).data('item');
-            buttonParent.attr('class','list-group-item eaten')
+            buttonParent.attr('class', 'list-group-item eaten')
             $(buttonId).remove();
             buttonParent.fadeOut('slow', function () {
 
@@ -91,10 +91,85 @@ $(document).ready(function () {
     })
 
 
+    //end devour button
 
 
+    //Delete button
+
+    function makeDeleteButton(element) {
+        let itemLeft = element.width() - element.position().left - 11;
+        let newB = $('<button>');
+        newB.attr('data-item', element.attr('data-item'));
+        newB.css('position', 'absolute');
+        newB.text('DELETE');
+        newB.attr('type', 'button');
+        newB.attr('class', 'btn-danger delete');
+        newB.attr('id', 'deleteBtn-' + element.attr('data-item'))
+        newB.css('left', itemLeft + 'px');
+        element.append(newB)
+    }
+
+    $(document).on('mouseenter', '.eaten', function () {
+        let buttonId = '#deleteBtn-' + $(this).attr('data-item');
+
+        if ($(buttonId).length === 0) {
+            makeDeleteButton($(this));
+        }
+    })
+
+    $(document).on('mouseleave', '.eaten', function () {
+        $('#deleteBtn-' + $(this).attr('data-item')).remove();
+    })
 
 
+    //For touchscreen
+    $(document).on("touchstart", '.eaten', function (e) {
+        let buttonId = '#deleteBtn-' + $(this).attr('data-item');
+
+        if ($(buttonId).length === 0) {
+            makeDeleteButton($(this));
+        }
+    })
+
+
+    $(document).on("click", ".eaten", function () {
+        let buttonId = '#deleteBtn-' + $(this).attr('data-item');
+
+        if (!$(buttonId).data('clicked') && ($(buttonId).length === 0)) {
+            makedeleteButton($(this));
+        } else if ($(buttonId).data('clicked')) {
+
+            let buttonParent = $(buttonId).parent();
+            let id = $(this).data('item');
+
+
+            buttonParent.fadeOut('slow', function () {
+
+                let removeBurger = {
+                    id: id
+                };
+
+                // Send the PUT request.
+                $.ajax("/api/deleteBurger/", {
+                    type: "DELETE",
+                    data: removeBurger
+                }).then(
+                    function () {
+                        buttonParent.remove();
+                    }
+                );
+
+            })
+        }
+    });
+
+
+    $(document).on('click', '.delete', function () {
+        $(this).data('clicked', true);
+    })
+
+
+    //end delete button
 
 
 
@@ -121,7 +196,7 @@ $(document).ready(function () {
 
 
 
-    
+
 });
 
 
