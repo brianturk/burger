@@ -20,6 +20,10 @@ body {
     cursor: pointer;
 }
 
+.eaten:hover {
+    cursor: pointer;
+}
+
 #burger {
     background-color: rgb(253, 222, 127);
 }

@@ -12,17 +12,7 @@ $(document).ready(function () {
     })
 
 
-    $(document).on('mouseenter', '.notEaten', function () {
-        let buttonId = '#devourBtn-' + $(this).attr('data-item');
-
-        if ($(buttonId).length === 0) {
-            makeDevourButton($(this));
-        }
-    })
-
-    $(document).on('mouseleave', '.notEaten', function () {
-        $('#devourBtn-' + $(this).attr('data-item')).remove();
-    })
+    
 
 
     function makeDevourButton(element) {
@@ -37,6 +27,27 @@ $(document).ready(function () {
         newB.css('left', itemLeft + 'px');
         element.append(newB)
     }
+
+    $(document).on('mouseenter', '.notEaten', function () {
+        let buttonId = '#devourBtn-' + $(this).attr('data-item');
+
+        if ($(buttonId).length === 0) {
+            makeDevourButton($(this));
+        }
+    })
+
+    $(document).on('mouseleave', '.notEaten', function () {
+        $('#devourBtn-' + $(this).attr('data-item')).remove();
+    })
+
+
+    $(document).on("touchstart", '.notEaten', function (e) {
+        let buttonId = '#devourBtn-' + $(this).attr('data-item');
+
+        if ($(buttonId).length === 0) {
+            makeDevourButton($(this));
+        }
+    })
 
 
     //For touchscreen?
@@ -79,6 +90,15 @@ $(document).ready(function () {
         $(this).data('clicked', true);
     })
 
+
+
+
+
+
+
+
+
+
     $("#newBurger").on("submit", function (e) {
         e.preventDefault();
         //do post stuff
@@ -98,6 +118,10 @@ $(document).ready(function () {
             }
         );
     })
+
+
+
+    
 });
 
 
