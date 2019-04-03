@@ -2,16 +2,8 @@
 const mysql = require("mysql");
 var connection;
 
-if (process.env.PORT != undefined) {
-  // connection = mysql.createConnection({
-    connection = mysql.createPool({
-    host: "us-cdbr-iron-east-03.cleardb.net",
-    port: 3306,
-    user: "b5e28bf2c648c5",
-    password: "a3eeb033",
-    database: "heroku_ab909486931f64a",
-    canRetry: true
-  });
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
   connection = mysql.createConnection({
     host: "localhost",
