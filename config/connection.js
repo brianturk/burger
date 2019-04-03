@@ -3,7 +3,8 @@ const mysql = require("mysql");
 var connection;
 
 if (process.env.PORT != undefined) {
-  connection = mysql.createConnection({
+  // connection = mysql.createConnection({
+    connection = mysql.createPool({
     host: "us-cdbr-iron-east-03.cleardb.net",
     port: 3306,
     user: "b5e28bf2c648c5",
