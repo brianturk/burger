@@ -28,11 +28,16 @@
           <h5 class="card-title">Burgers I Want To Eat</h5>
 
           <ul class="list-group" id='notEatenList'>
-            <li class="list-group-item notEaten" data-item="1">Cras justo odio</li>
+            {{#each burgers}}
+              {{#unless devoured}}
+                {{> burgers/burger-block devour=false}}
+              {{/unless}}
+            {{/each}}
+            {{!-- <li class="list-group-item notEaten" data-item="1">Cras justo odio</li>
             <li class="list-group-item notEaten" data-item="2">Dapibus ac facilisis in</li>
             <li class="list-group-item notEaten" data-item="3">Morbi leo risus</li>
             <li class="list-group-item notEaten" data-item="4">Porta ac consectetur ac</li>
-            <li class="list-group-item notEaten" data-item="5">Vestibulum at eros</li>
+            <li class="list-group-item notEaten" data-item="5">Vestibulum at eros</li> --}}
           </ul>
         </div>
       </div>
@@ -42,11 +47,16 @@
         <div class="card-body bg-light">
           <h5 class="card-title">Burgers I Have Eaten</h5>
           <ul class="list-group" id='eatenList'>
-            <li class="list-group-item eaten" data-item="6">Cras justo odio</li>
+            {{#each burgers}}
+              {{#if devoured}}
+                {{> burgers/burger-block devour=true}}
+              {{/if}}
+            {{/each}}
+            {{!-- <li class="list-group-item eaten" data-item="6">Cras justo odio</li>
             <li class="list-group-item eaten" data-item="7">Dapibus ac facilisis in</li>
             <li class="list-group-item eaten" data-item="8">Morbi leo risus</li>
             <li class="list-group-item eaten" data-item="9">Porta ac consectetur ac</li>
-            <li class="list-group-item eaten" data-item="10">Vestibulum at eros</li>
+            <li class="list-group-item eaten" data-item="10">Vestibulum at eros</li> --}}
           </ul>
 
         </div>
@@ -54,3 +64,7 @@
     </div>
   </div>
 </div>
+
+<audio class="audios" id="eatAudio" preload="auto"> 
+   <source src="assets/audio/Eating-SoundBible.com-1470347575.wav" type="audio/wav">
+</audio>

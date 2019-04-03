@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     $('#burger').focus();
-    var eatAudio = new Audio('../audio/Eating-SoundBible.com-1470347575.wav');
+    var eatAudio = new Audio('../assets/audio/Eating-SoundBible.com-1470347575.wav');
 
     $(window).resize(function () {
         if ($(window).width() < 500) {
@@ -9,17 +9,6 @@ $(document).ready(function () {
         } else {
             $("#addBurger").html('Add Da Burger&nbsp&nbsp&nbsp<i class="fas fa-hamburger"></i>');
         }
-    })
-
-    $("#addBurger").on("submit", function (e) {
-        e.preventDefault();
-        var allValues = {
-            burgerName: $("#burger").val()
-        };
-        $.post("/api/addBurger", allValues)
-            .then(function (data) {
-                location.reload();
-            });
     })
 
 
@@ -57,13 +46,18 @@ $(document).ready(function () {
         if (!$(buttonId).data('clicked') && ($(buttonId).length === 0)) {
             makeDevourButton($(this));
         } else if ($(buttonId).data('clicked')) {
-            eatAudio.play();
-            $($(buttonId).parent()).fadeOut('slow', function () {
-                $('#eatenList').append($(buttonId).parent());
-                $($(buttonId).parent()).fadeIn('slow', function () {
+            $('#eatAudio').trigger('play')
+            // eatAudio.play();
+            let buttonParent = $(buttonId).parent();
+            let id = $(this).data('item');
+            buttonParent.attr('class','list-group-item eaten')
+            $(buttonId).remove();
+            buttonParent.fadeOut('slow', function () {
 
+                $('#eatenList').append(buttonParent);
+                buttonParent.fadeIn('slow', function () {
                     let eatenBurger = {
-                        id: $(this).attr('data-item');
+                        id: id
                     };
 
                     // Send the PUT request.
@@ -72,8 +66,7 @@ $(document).ready(function () {
                         data: eatenBurger
                     }).then(
                         function () {
-                            //   location.reload();
-                            eatAudio.pause();
+                            $('#eatAudio').trigger('pause')
                         }
                     );
                 })
@@ -91,7 +84,7 @@ $(document).ready(function () {
         //do post stuff
 
         var newBurger = {
-            burger: $("#burger").val().trim()
+            burgerName: $("#burger").val().trim()
         };
 
         // Send the POST request.
@@ -101,7 +94,7 @@ $(document).ready(function () {
         }).then(
             function () {
                 // Reload the page to get the updated list
-                //   location.reload();
+                location.reload();
             }
         );
     })
